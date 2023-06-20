@@ -1,0 +1,28 @@
+<form
+  [formGroup]="frmCart"
+  (ngSubmit)="addCart(item)"
+  class="flex items-center justify-between p-4 rounded-2xl"
+>
+  <mat-form-field appearance="fill">
+    <mat-label>Cantidad</mat-label>
+    <input
+      matInput
+      type="number"
+      id="quantity"
+      name="quantity"
+      formControlName="quantity"
+    />
+    <mat-icon matSuffix>format_list_numbered_rtl</mat-icon>
+    <mat-error *ngIf="validateInputs('quantity', 'required')" class="text-xs">
+      {{ "La cantidad debe ser mayor o igual " + item.min }}</mat-error
+    >
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="flex items-center gap-2 justify-center"
+  >
+    Agregar <mat-icon>add_shopping_cart</mat-icon>
+  </button>
+</form>

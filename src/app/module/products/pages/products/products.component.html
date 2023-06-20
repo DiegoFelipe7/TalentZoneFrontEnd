@@ -1,0 +1,59 @@
+<button
+  class="mb-2 flex items-center gap-2 bg-primary-900 py-3 px-2 rounded text-white font-medium"
+  (click)="openDialog()"
+>
+  <mat-icon>save</mat-icon> Agregar producto
+</button>
+
+<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+  <table class="w-full text-sm text-left">
+    <thead class="text-xs uppercase bg-primary-300 text-white">
+      <tr>
+        <th scope="col" class="py-3 px-6">Id</th>
+        <th scope="col" class="py-3 px-6">Nombre producto</th>
+        <th scope="col" class="py-3 px-6">Unidades disponibles</th>
+        <th scope="col" class="py-3 px-6">Estado</th>
+        <th scope="col" class="py-3 px-6">Productos minimos</th>
+        <th scope="col" class="py-3 px-6">Productos maximos</th>
+        <th scope="col" class="py-3 px-6">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products; let i = index" class="capitalize">
+        <th scope="row" class="py-4 px-6 font-boldwhitespace-nowrap">
+          {{ i + 1 }}
+        </th>
+        <td class="py-4 px-6">{{ product.name }}</td>
+        <td class="py-4 px-6">{{ product.inInventory }}</td>
+        <td class="py-4 px-6">
+          <span
+            [ngClass]="
+              product.enabled
+                ? 'p-2 bg-green-400 text-white rounded'
+                : 'bg-red-400 text-white rounded'
+            "
+            >{{ product.enabled ? "Activo" : "Inactivo" }}</span
+          >
+        </td>
+        <td class="py-4 px-6">{{ product.min }}</td>
+        <td class="py-4 px-6">{{ product.max }}</td>
+        <td class="py-4 px-6">
+          <div class="flex items-center justify-center gap-4">
+            <button
+              (click)="editProduct(product.id!)"
+              class="bg-red-900 px-2 text-white rounded"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              (click)="removeProducts(product.id!)"
+              class="bg-primary-900 px-2 text-white rounded"
+            >
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

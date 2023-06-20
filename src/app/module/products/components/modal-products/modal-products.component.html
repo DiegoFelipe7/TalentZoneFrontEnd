@@ -1,0 +1,77 @@
+<div class="py-6 px-6 lg:px-8">
+  <p class="mb-4 text-xl capitalize font-bold">
+    {{ data.id ? "Editar producto" : "Crear Producto" }}
+  </p>
+  <form
+    class="space-y-2 gap-2"
+    autocomplete="off"
+    [formGroup]="frmProducst"
+    (ngSubmit)="saveProduct()"
+  >
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Nombre producto</mat-label>
+      <input
+        matInput
+        placeholder="Jarabe"
+        id="name"
+        name="name"
+        formControlName="name"
+      />
+      <mat-icon matSuffix>forum</mat-icon>
+      <mat-error *ngIf="validateInputs('name', 'required')" class="text-xs">
+        {{ "El nombre del producto  es requerido" }}</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Unidades disponibles</mat-label>
+      <input
+        matInput
+        type="number"
+        id="inInventory"
+        name="inInventory"
+        formControlName="inInventory"
+      />
+      <mat-icon matSuffix>format_list_numbered</mat-icon>
+      <mat-error
+        *ngIf="validateInputs('inInventory', 'required')"
+        class="text-xs"
+      >
+        {{ "Las unidades del producto son requerido" }}</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Estado Producto</mat-label>
+      <mat-select id="enabled" name="enabled" formControlName="enabled">
+        <mat-option [value]="">--Selecciona una opción--</mat-option>
+        <mat-option [value]="true">Activo</mat-option>
+        <mat-option [value]="false">Inactivo</mat-option>
+      </mat-select>
+      <mat-error *ngIf="validateInputs('enabled', 'required')" class="text-xs">
+        {{ "El estado del producto  es requerido" }}</mat-error
+      >
+      <mat-icon matSuffix>category</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Unidades minimas</mat-label>
+      <input matInput type="number" id="min" name="min" formControlName="min" />
+      <mat-icon matSuffix>format_list_numbered</mat-icon>
+
+      <mat-error *ngIf="validateInputs('min', 'required')" class="text-xs">
+        {{ "El codigo debe tener 1 digitos" }}</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Unidades maximas</mat-label>
+      <input matInput type="number" id="max" name="max" formControlName="max" />
+      <mat-icon matSuffix>format_list_numbered</mat-icon>
+      <mat-error *ngIf="validateInputs('max', 'required')" class="text-xs">
+        {{ "El valor maximo del producto  es requerido" }}</mat-error
+      >
+    </mat-form-field>
+    <button mat-raised-button type="submit" class="w-full" color="primary">
+      {{ data.id ? "Actualizar producto" : "Registrar Producto" }}
+    </button>
+  </form>
+</div>
