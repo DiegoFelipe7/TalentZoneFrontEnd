@@ -1,0 +1,30 @@
+<div
+  class="w-full bg-white max-w-md p-4 border border-gray-200 rounded-lg shadow sm:p-8"
+>
+  <div class="flex items-center justify-between mb-4">
+    <p class="text-xl font-bold leading-none text-gray-800">
+      Listado de compras
+    </p>
+  </div>
+  <div class="flow-root">
+    <ul role="list" class="divide-y divide-gray-200">
+      <li class="py-3 sm:py-4" *ngFor="let item of products">
+        <div class="flex items-center space-x-4">
+          <div class="flex-shrink-0">
+            <mat-icon>add_shopping_cart</mat-icon>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-900 truncate">
+              {{ item.name }}
+            </p>
+          </div>
+          <div
+            class="inline-flex items-center text-base font-semibold text-gray-900"
+          >
+            Cantidad {{ item.quantity }}
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

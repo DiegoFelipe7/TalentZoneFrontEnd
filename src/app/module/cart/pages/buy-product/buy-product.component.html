@@ -4,8 +4,17 @@
       <p class="text-2xl font-semibold">Lista de productos</p>
       <div
         *ngFor="let item of product"
-        class="rounded-3xl p-2 shadow-xl col-span-12 sm:col-span-6 lg:col-span-4"
+        class="rounded-3xl p-2 shadow-xl col-span-12 sm:col-span-6 lg:col-span-4 bg-white mt-2"
       >
+        <div class="flex flex-row-reverse">
+          <button
+            (click)="removeProduct(item.id!)"
+            class="bg-red-500 px-4 py-2 rounded-full text-white font-semibold"
+          >
+            x
+          </button>
+        </div>
+
         <div class="flex flex-row items-center gap-4 mb-6 p-4">
           <div
             class="bg-amber-500/10 flex items-center justify-center rounded-full w-12 h-12"
@@ -21,13 +30,12 @@
           </div>
         </div>
         <div class="flex flex-row items-center justify-between gap-8 mb-2 px-4">
-          <div class="flex flex-col md:flex-row items-center gap-2">
-            <h4 class="text-neutral-500">Minimos : {{ item.min }}</h4>
-          </div>
           <div
             class="flex flex-col md:flex-row items-center gap-2 text-neutral-500"
           >
-            <h4 class="text-neutral-600">Maximo: {{ item.max }}</h4>
+            <h4 class="text-neutral-600">
+              Cantidad de compra: {{ item.quantity }}
+            </h4>
           </div>
           <div
             class="flex flex-col md:flex-row items-center gap-2 text-neutral-500"

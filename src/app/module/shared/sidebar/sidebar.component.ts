@@ -36,9 +36,9 @@ export class SidebarComponent {
         icon: "history"
       },
       {
-        route: "/question",
-        name: "Preguntas",
-        icon: "question_answer"
+        route: "/cart/payment",
+        name: "Pagos",
+        icon: "attach_money"
       }
     ]
   }

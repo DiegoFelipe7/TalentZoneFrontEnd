@@ -4,6 +4,7 @@ import { Observable } from "rxjs"
 import { Iproducts } from '../interfaces/Product.interface';
 import { environment } from 'src/environments/environment';
 import { Iresponse } from '../interfaces/Response.interface';
+import { Ihistory } from '../interfaces/History.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +16,11 @@ export class ProductsService {
   getProducts(): Observable<Iproducts[]> {
     return this.http.get<Iproducts[]>(`${this.api}/products`);
   }
+
+  getHistory(): Observable<Ihistory[]> {
+    return this.http.get<Ihistory[]>(`${this.api}/buys/history`);
+  }
+
   getProductId(id: string): Observable<Iproducts> {
     return this.http.get<Iproducts>(`${this.api}/product/${id}`);
   }

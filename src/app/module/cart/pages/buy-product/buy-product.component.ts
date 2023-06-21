@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RouterModule } from '@angular/router';
 
 import { BuysService } from '../../service/buys.service';
+import { Ierror, Ierrors } from '../../interfaces/error.interface';
 @Component({
   selector: 'app-buy-product',
   standalone: true,
@@ -32,6 +33,9 @@ export class BuyProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getCard();
+  }
+  getCard(): void {
     if (localStorage.getItem("cart")) {
       const cartItems = localStorage.getItem('cart');
       if (cartItems) {
@@ -62,9 +66,9 @@ export class BuyProductComponent implements OnInit {
       next: () => {
         this.toastr.success("Compra exitosa", "Exitos")
       },
-      error: (error) => {
-        console.log(error)
-        this.toastr.error("Compra exitosa", "Error")
+      error: (error: Ierrors) => {
+        console.log(error.error.message)
+        this.toastr.error(`${error.error.message}`, "Error")
 
       },
       complete: () => {
@@ -72,6 +76,16 @@ export class BuyProductComponent implements OnInit {
       }
     })
 
+  }
+
+  removeProduct(id: string) {
+    if (localStorage.getItem("cart")) {
+      const data = localStorage.getItem("cart")
+      let result: Iproducts[] = JSON.parse(data!)
+      const resp = result.filter(ele => ele.id != id);
+      localStorage.setItem('cart', JSON.stringify(resp));
+      this.getCard();
+    }
   }
 
 }
