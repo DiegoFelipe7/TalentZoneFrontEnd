@@ -6,10 +6,11 @@ import { ToastrService } from 'ngx-toastr';
 describe('BuyProductComponent', () => {
   let component: BuyProductComponent;
   let fixture: ComponentFixture<BuyProductComponent>;
-  let toasService: ToastrService;
+  let toastrService: ToastrService;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [BuyProductComponent, ToastrService]
+      imports: [BuyProductComponent],
+      providers: [ToastrService]
     });
     fixture = TestBed.createComponent(BuyProductComponent);
     component = fixture.componentInstance;
