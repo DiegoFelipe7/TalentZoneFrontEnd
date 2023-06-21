@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RemoveProductsComponent } from './remove-products.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 describe('RemoveProductsComponent', () => {
   let component: RemoveProductsComponent;
@@ -8,7 +8,13 @@ describe('RemoveProductsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RemoveProductsComponent]
+      imports: [RemoveProductsComponent],
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: {}
+        }
+      ]
     });
     fixture = TestBed.createComponent(RemoveProductsComponent);
     component = fixture.componentInstance;
