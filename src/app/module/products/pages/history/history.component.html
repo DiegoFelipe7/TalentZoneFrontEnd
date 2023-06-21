@@ -1,5 +1,6 @@
 <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-  <input class="" placeholder="buscador" />
+  <app-search (historySearchResult)="handleSearchResult($event)"></app-search>
+
   <table class="w-full text-sm text-left">
     <thead class="text-xs uppercase bg-primary-300 text-white">
       <tr>
@@ -11,7 +12,7 @@
         <th scope="col" class="py-3 px-6">Acciones</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="historySearch.length <= 0; else seachResult">
       <tr *ngFor="let item of history; let i = index" class="capitalize">
         <th scope="row" class="py-4 px-6 font-boldwhitespace-nowrap">
           {{ i + 1 }}
@@ -34,3 +35,26 @@
     </tbody>
   </table>
 </div>
+<ng-template #seachResult>
+  <tbody>
+    <tr *ngFor="let item of historySearch; let i = index" class="capitalize">
+      <th scope="row" class="py-4 px-6 font-boldwhitespace-nowrap">
+        {{ i + 1 }}
+      </th>
+      <td class="py-4 px-6">{{ item.date }}</td>
+      <td class="py-4 px-6">{{ item.idType }}</td>
+      <td class="py-4 px-6">{{ item.identification }}</td>
+      <td class="py-4 px-6">{{ item.clientName }}</td>
+      <td class="py-4 px-6">
+        <div class="flex items-center justify-center gap-4">
+          <button
+            class="bg-primary-100 px-2 text-white rounded"
+            (click)="openHistory(item.products)"
+          >
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</ng-template>

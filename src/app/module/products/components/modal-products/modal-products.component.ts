@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ProductsService } from '../../services/products.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-modal-products',
   standalone: true,
@@ -16,7 +17,7 @@ import { ProductsService } from '../../services/products.service';
 })
 export class ModalProductsComponent implements OnInit {
   frmProducst: FormGroup;
-  constructor(private fb: FormBuilder, private productService: ProductsService, private ialogRef: MatDialogRef<ModalProductsComponent>, @Inject(MAT_DIALOG_DATA) public data: { id: string, refresh: () => void }) {
+  constructor(private toast: ToastrService, private fb: FormBuilder, private productService: ProductsService, private ialogRef: MatDialogRef<ModalProductsComponent>, @Inject(MAT_DIALOG_DATA) public data: { id: string, refresh: () => void }) {
     this.frmProducst = this.fb.group({
       name: ["", Validators.required],
       inInventory: ["", Validators.required],
@@ -56,6 +57,7 @@ export class ModalProductsComponent implements OnInit {
       this.productService.updateProduct(data, this.data.id).subscribe({
         next: () => {
           this.closeModal();
+          this.toast.success("Producto registrado", "Exito")
         },
         complete: () => this.data.refresh()
       });
@@ -64,6 +66,7 @@ export class ModalProductsComponent implements OnInit {
       this.productService.saveProduct(data).subscribe({
         next: () => {
           this.closeModal();
+          this.toast.success("Producto actualizado", "Exito")
         },
         complete: () => this.data.refresh()
       });
