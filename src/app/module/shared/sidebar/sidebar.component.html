@@ -14,12 +14,13 @@
     class="bg-primary-300 p-8 rounded-tr-[100px] h-[70vh] flex flex-col justify-between gap-8"
   >
     <nav class="flex flex-col gap-8">
-      <button
+      <a
         *ngFor="let item of menu"
         class="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors hover:cursor-pointer"
+        routerLink="{{ item.route }}"
       >
         <mat-icon>{{ item.icon }}</mat-icon> {{ item.name }}
-      </button>
+      </a>
     </nav>
     <div class="bg-primary-900/50 text-white p-4 rounded-xl">
       <p class="text-gray-400">Tienes dudas?</p>

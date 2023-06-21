@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 export interface menu {
   route: string,
   name: string,
@@ -9,7 +10,7 @@ export interface menu {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, RouterModule, MatIconModule],
   templateUrl: './sidebar.component.html',
 })
 
@@ -25,7 +26,7 @@ export class SidebarComponent {
         icon: "home"
       },
       {
-        route: "/sale",
+        route: "/cart",
         name: "Compras",
         icon: "attach_money"
       },

@@ -1,0 +1,110 @@
+<div class="grid grid-cols-12 gap-4">
+  <div class="col-span-12 sm:col-span-6 lg:col-span-6">
+    <div *ngIf="product.length > 0; else empty">
+      <p class="text-2xl font-semibold">Lista de productos</p>
+      <div
+        *ngFor="let item of product"
+        class="rounded-3xl p-2 shadow-xl col-span-12 sm:col-span-6 lg:col-span-4"
+      >
+        <div class="flex flex-row items-center gap-4 mb-6 p-4">
+          <div
+            class="bg-amber-500/10 flex items-center justify-center rounded-full w-12 h-12"
+          >
+            <mat-icon>shopping_cart</mat-icon>
+          </div>
+          <div>
+            <h3 class="font-medium">{{ item.name }}</h3>
+            <p class="text-sm text-neutral-500">
+              Unidades disponibles
+              <span class="font-semibold"> {{ item.inInventory }}</span>
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-row items-center justify-between gap-8 mb-2 px-4">
+          <div class="flex flex-col md:flex-row items-center gap-2">
+            <h4 class="text-neutral-500">Minimos : {{ item.min }}</h4>
+          </div>
+          <div
+            class="flex flex-col md:flex-row items-center gap-2 text-neutral-500"
+          >
+            <h4 class="text-neutral-600">Maximo: {{ item.max }}</h4>
+          </div>
+          <div
+            class="flex flex-col md:flex-row items-center gap-2 text-neutral-500"
+          >
+            <h4>Estado: {{ item.enabled ? "Activo" : "Inactivo" }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-span-12 sm:col-span-6 lg:col-span-6 p-6">
+    <form
+      [formGroup]="frmBuyProduct"
+      (ngSubmit)="saveBuy()"
+      class="bg-white shadow-2xl rounded p-5"
+    >
+      <h2>Información de usuario</h2>
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Estado Producto</mat-label>
+        <mat-select id="idType" name="idType" formControlName="idType">
+          <mat-option [value]="">--Selecciona una opción--</mat-option>
+          <mat-option value="CC">Cedula ciudadana</mat-option>
+          <mat-option value="TI">Tarjeta identidad</mat-option>
+          <mat-option value="CE">Cedula extranjera</mat-option>
+        </mat-select>
+        <mat-error *ngIf="validateInputs('idType', 'required')" class="text-xs">
+          {{ "El documento del usuario es requerido" }}</mat-error
+        >
+        <mat-icon matSuffix>category</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>identification</mat-label>
+        <input
+          matInput
+          placeholder="123456789"
+          id="identification"
+          name="identification"
+          formControlName="identification"
+        />
+        <mat-icon matSuffix>forum</mat-icon>
+        <mat-error
+          *ngIf="validateInputs('identification', 'required')"
+          class="text-xs"
+        >
+          {{ "La identificaion de usuario es requerido" }}</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Nombre cliente</mat-label>
+        <input
+          matInput
+          placeholder="Juan perez"
+          id="clientName"
+          name="clientName"
+          formControlName="clientName"
+        />
+        <mat-icon matSuffix>forum</mat-icon>
+        <mat-error
+          *ngIf="validateInputs('clientName', 'required')"
+          class="text-xs"
+        >
+          {{ "El nombre del cliente es requerido" }}</mat-error
+        >
+      </mat-form-field>
+      <button mat-raised-button color="primary" *ngIf="product.length > 0">
+        Terminar compra
+      </button>
+    </form>
+  </div>
+</div>
+
+<ng-template #empty>
+  <p class="text-2xl font-semibold">
+    No tienes productos en tu carrito de compras
+  </p>
+  <a routerLink="/cart" class="p-3 text-1xl bg-primary-300 text-white"
+    >Regresar</a
+  >
+</ng-template>
