@@ -13,11 +13,12 @@ const routes: Routes = [
     path: "cart", component: CartComponent
   },
   {
-    path: "history", component: HistoryComponent
+    path: "cart/payment", component: BuyProductComponent
   },
   {
-    path: "cart/payment", component: BuyProductComponent
-  }
+    path: "history", component: HistoryComponent
+  },
+
 ];
 
 @NgModule({

@@ -9,8 +9,7 @@ describe('SidebarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterModule],
-      declarations: [SidebarComponent],
+      imports: [SidebarComponent, RouterModule],
       providers: [
         { provide: ActivatedRoute, useValue: {} }
       ]
@@ -23,5 +22,21 @@ describe('SidebarComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it(' close the menu', () => {
+    component.showMenu = true;
+
+    component.closeMenu();
+
+    expect(component.showMenu).toBe(false);
+  });
+
+  it(' open the menu', () => {
+    component.showMenu = false;
+
+    component.openMenu();
+
+    expect(component.showMenu).toBe(true);
   });
 });

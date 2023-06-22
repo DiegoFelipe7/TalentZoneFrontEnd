@@ -24,7 +24,7 @@ export class ProductHistoryComponent implements OnInit {
           return {
             id: ele.id,
             quantity: ele.quantity,
-            name: prod.name
+            name: prod.name!
           };
         })
       ).subscribe(ele => this.products.push(ele));

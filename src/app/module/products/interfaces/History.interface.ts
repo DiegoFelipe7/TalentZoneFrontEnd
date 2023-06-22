@@ -1,7 +1,7 @@
 export interface Ihistory {
 
-    id: string,
-    date: Date,
+    id?: string,
+    date?: Date,
     idType: string,
     identification: string,
     clientName: string,

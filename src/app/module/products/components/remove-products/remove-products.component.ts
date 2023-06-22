@@ -27,7 +27,5 @@ export class RemoveProductsComponent {
       },
       error: (error) => console.log(error)
     })
-
-
   }
 }

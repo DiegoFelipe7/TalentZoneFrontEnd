@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RouterModule } from '@angular/router';
 
 import { BuysService } from '../../service/buys.service';
-import { Ierror, Ierrors } from '../../interfaces/error.interface';
+import { Ierrors } from '../../interfaces/error.interface';
 @Component({
   selector: 'app-buy-product',
   standalone: true,

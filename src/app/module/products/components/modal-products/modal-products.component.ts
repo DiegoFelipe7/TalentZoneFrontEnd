@@ -57,7 +57,7 @@ export class ModalProductsComponent implements OnInit {
       this.productService.updateProduct(data, this.data.id).subscribe({
         next: () => {
           this.closeModal();
-          this.toast.success("Producto registrado", "Exito")
+           this.toast.success("Producto registrado", "Exito")
         },
         complete: () => this.data.refresh()
       });
