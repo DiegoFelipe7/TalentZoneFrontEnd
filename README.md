@@ -26,8 +26,8 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-
 # Proyecto
+
 ## Productos
 
 Listado de productos
@@ -36,7 +36,7 @@ Listado de productos
 Guardar producto
 ![Alt text](image-1.png)
 
-Editar producto 
+Editar producto
 ![Alt text](image-2.png)
 
 Eliminar Producto
@@ -56,6 +56,9 @@ Historial de compras y detalles del producto
 Buscador por identificación de cliente
 ![Alt text](image-7.png)
 
-
 Responsi desing
 ![Alt text](image-8.png)
+
+Cobertura
+
+![Alt text](image-9.png)

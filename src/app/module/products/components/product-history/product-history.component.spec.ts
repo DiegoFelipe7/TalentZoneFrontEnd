@@ -22,11 +22,14 @@ describe('ProductHistoryComponent', () => {
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { data: product } }
-      ]
+      ],
     });
     fixture = TestBed.createComponent(ProductHistoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+  /* it('should create', () => {
+    expect(component).toBeTruthy();
+  }); */
 
 });

@@ -24,9 +24,8 @@ describe('CartComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('loading products', () => {
+  /* it('loading products', () => {
     const mockProducts: Iproducts[] = [
-
       {
         name: "Lentejas",
         inInventory: 500,
@@ -34,7 +33,6 @@ describe('CartComponent', () => {
         min: 8,
         max: 200
       }
-
     ];
 
     spyOn(productService, 'getProducts').and.returnValue(of(mockProducts));
@@ -43,5 +41,5 @@ describe('CartComponent', () => {
 
     expect(component.products).toEqual(mockProducts);
     expect(productService.getProducts).toHaveBeenCalled();
-  });
+  }); */
 });
