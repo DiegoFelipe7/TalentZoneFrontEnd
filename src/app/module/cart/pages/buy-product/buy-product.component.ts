@@ -13,6 +13,11 @@ import { RouterModule } from '@angular/router';
 
 import { BuysService } from '../../service/buys.service';
 import { Ierrors } from '../../interfaces/error.interface';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
+import { CartAction } from '../../store';
+import { Observable, take } from 'rxjs';
+import { SelectorLoading, SelectorProducts } from '../../store/cart.selector';
 @Component({
   selector: 'app-buy-product',
   standalone: true,
@@ -20,10 +25,12 @@ import { Ierrors } from '../../interfaces/error.interface';
   templateUrl: './buy-product.component.html',
 })
 export class BuyProductComponent implements OnInit {
-  product: Iproducts[]
+  product$: Observable<Iproducts[]>
   frmBuyProduct: FormGroup;
-  constructor(private fb: FormBuilder, private toastr: ToastrService, private buyService: BuysService) {
-    this.product = []
+  loading$: Observable<Boolean>
+  constructor(private fb: FormBuilder, private toastr: ToastrService, private buyService: BuysService, private store: Store<AppState>) {
+    this.product$ = new Observable();
+    this.loading$ = new Observable();
     this.frmBuyProduct = this.fb.group({
       idType: ["", Validators.required],
       identification: ["", Validators.required],
@@ -33,14 +40,21 @@ export class BuyProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(CartAction.GETALLCART());
     this.getCard();
+    this.loading$ = this.store.select(SelectorLoading);
+    this.product$ = this.store.select(SelectorProducts);
+
+
   }
   getCard(): void {
     if (localStorage.getItem("cart")) {
       const cartItems = localStorage.getItem('cart');
       if (cartItems) {
-        this.product = JSON.parse(cartItems);
+        this.store.dispatch(CartAction.GETALLCARTSUCCEFUL({ product: JSON.parse(cartItems) }));
       }
+    } else {
+      this.store.dispatch(CartAction.GETALLCARTFAILED());
     }
   }
   validateInputs(field: string, type: string) {
@@ -55,26 +69,31 @@ export class BuyProductComponent implements OnInit {
       idType: this.frmBuyProduct.get("idType")?.value,
       identification: this.frmBuyProduct.get("identification")?.value,
       clientName: this.frmBuyProduct.get("clientName")?.value,
-      products: this.product.map((item: Iproducts) => {
+      products: []
+    };
+
+    this.product$.pipe(take(1)).subscribe((items: Iproducts[]) => {
+      newObject.products = items.map((item: Iproducts) => {
         return {
           id: item.id!,
           quantity: item.quantity!
-        }
-      })
-    }
-    this.buyService.saveBuys(newObject).subscribe({
-      next: () => {
-        this.toastr.success("Compra exitosa", "Exitos")
-      },
-      error: (error: Ierrors) => {
-        console.log(error.error.message)
-        this.toastr.error(`${error.error.message}`, "Error")
-
-      },
-      complete: () => {
-        localStorage.removeItem("cart")
-      }
-    })
+        };
+      });
+    });
+    console.log(newObject)
+    /* this.buyService.saveBuys(newObject).subscribe({
+       next: () => {
+         this.toastr.success("Compra exitosa", "Exitos")
+       },
+       error: (error: Ierrors) => {
+         console.log(error.error.message)
+         this.toastr.error(`${error.error.message}`, "Error")
+   
+       },
+       complete: () => {
+         localStorage.removeItem("cart")
+       }
+     }) */
 
   }
 

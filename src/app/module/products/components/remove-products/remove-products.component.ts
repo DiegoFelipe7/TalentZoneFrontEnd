@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ProductsService } from '../../services/products.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
+import { ProductAction } from '../../store';
 
 @Component({
   selector: 'app-remove-products',
@@ -11,7 +14,7 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './remove-products.component.html',
 })
 export class RemoveProductsComponent {
-  constructor(private ialogRef: MatDialogRef<RemoveProductsComponent>, @Inject(MAT_DIALOG_DATA) public data: { id: string, refresh: () => void }, private productService: ProductsService) {
+  constructor(private store: Store<AppState>, private ialogRef: MatDialogRef<RemoveProductsComponent>, @Inject(MAT_DIALOG_DATA) public data: { id: string }, private productService: ProductsService) {
 
   }
 
@@ -20,12 +23,7 @@ export class RemoveProductsComponent {
   }
 
   removeProduct() {
-    this.productService.removeProduct(this.data.id).subscribe({
-      next: (v) => {
-        this.data.refresh();
-        this.closeModal();
-      },
-      error: (error) => console.log(error)
-    })
+    this.store.dispatch(ProductAction.REMOVEPRODUCT({ id: this.data.id }))
+    this.closeModal();
   }
 }

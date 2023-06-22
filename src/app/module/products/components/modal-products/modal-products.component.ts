@@ -9,6 +9,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ProductsService } from '../../services/products.service';
 import { ToastrService } from 'ngx-toastr';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
+import { ProductAction } from '../../store';
+import { Iproducts } from '../../interfaces/Product.interface';
 @Component({
   selector: 'app-modal-products',
   standalone: true,
@@ -17,7 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ModalProductsComponent implements OnInit {
   frmProducst: FormGroup;
-  constructor(private toast: ToastrService, private fb: FormBuilder, private productService: ProductsService, private ialogRef: MatDialogRef<ModalProductsComponent>, @Inject(MAT_DIALOG_DATA) public data: { id: string, refresh: () => void }) {
+  constructor(private store: Store<AppState>, private toast: ToastrService, private fb: FormBuilder, private productService: ProductsService, private ialogRef: MatDialogRef<ModalProductsComponent>, @Inject(MAT_DIALOG_DATA) public data: { id: string }) {
     this.frmProducst = this.fb.group({
       name: ["", Validators.required],
       inInventory: ["", Validators.required],
@@ -52,24 +56,14 @@ export class ModalProductsComponent implements OnInit {
     if (this.frmProducst.invalid) {
       return;
     }
-    const data = this.frmProducst.getRawValue();
+    const data: Iproducts = this.frmProducst.getRawValue();
     if (this.data.id) {
-      this.productService.updateProduct(data, this.data.id).subscribe({
-        next: () => {
-          this.closeModal();
-           this.toast.success("Producto registrado", "Exito")
-        },
-        complete: () => this.data.refresh()
-      });
+      this.store.dispatch(ProductAction.UPDATEPRODUCT({ product: data, id: this.data.id }));
+      this.closeModal();
 
     } else {
-      this.productService.saveProduct(data).subscribe({
-        next: () => {
-          this.closeModal();
-          this.toast.success("Producto actualizado", "Exito")
-        },
-        complete: () => this.data.refresh()
-      });
+      this.store.dispatch(ProductAction.SAVEPRODUCT({ product: data }));
+      this.closeModal();
     }
   }
 

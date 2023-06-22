@@ -1,9 +1,9 @@
 <div class="grid grid-cols-12 gap-4">
   <div class="col-span-12 sm:col-span-6 lg:col-span-6">
-    <div *ngIf="product.length > 0; else empty">
+    <div *ngIf="loading$ | async; else empty">
       <p class="text-2xl font-semibold">Lista de productos</p>
       <div
-        *ngFor="let item of product"
+        *ngFor="let item of product$ | async"
         class="rounded-3xl p-2 shadow-xl col-span-12 sm:col-span-6 lg:col-span-4 bg-white mt-2"
       >
         <div class="flex flex-row-reverse">
@@ -101,7 +101,11 @@
           {{ "El nombre del cliente es requerido" }}</mat-error
         >
       </mat-form-field>
-      <button mat-raised-button color="primary" *ngIf="product.length > 0">
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="(product$ | async)!.length > 0"
+      >
         Terminar compra
       </button>
     </form>

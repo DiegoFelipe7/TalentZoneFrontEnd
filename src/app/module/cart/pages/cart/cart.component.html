@@ -1,6 +1,6 @@
 <div class="grid grid-cols-12 gap-5">
   <div
-    *ngFor="let item of products"
+    *ngFor="let item of products$ | async"
     class="rounded-3xl p-2 shadow-xl col-span-12 sm:col-span-6 lg:col-span-4"
   >
     <div class="flex flex-row items-center gap-4 mb-6 p-4">
